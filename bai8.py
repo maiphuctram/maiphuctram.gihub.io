@@ -6,14 +6,21 @@ Created on Sat Nov 21 15:49:06 2020
 """
 
 import smtplib
-	from email.mime.base import MIMEBase
-	from email.mime.multipart import MIMEMultipart
-	from email.mime.text import MIMEText
-    fromaddr = "maithiphuctram@gmail.com"
-    toaddr = "maithiphuctram@gmail.com"
-    msg = MIMEMultipart()    
-    msg['From'] = fromaddr
-    msg['To'] = toaddr
-    msg['Subject'] = "bài 8"
-    body = "thầy hơi ác ạ"
+import getpass
+n = int(input('Số lần muốn gửi mail: '))
+if n <= 0:
+    print('Vui lòng nhập lại số lần muốn gửi mail')
+else:
+    email = input('Email của bạn là:')
+    password = getpass.getpass('Password:')
+    address = input('Người nhận: ')
+    msg = input('Nội dung: ')
+    
+    client = smtplib.SMTP('smtp.gmail.com',587)
+    client.starttls()
+    client.login(email , password)
+    for i in range(n):
+        client.sendmail(email , address , msg)
+    print(n,' tin nhắn đã được gửi tới ', address)
+    client.quit()
     
